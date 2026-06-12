@@ -1,0 +1,5 @@
+pymupdf
+paddlepaddle
+paddleocr>=2.7,<3.0
+pillow
+numpy
