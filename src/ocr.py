@@ -87,7 +87,7 @@ def ocr_scanned_page(page: fitz.Page, lang_code: str, dpi: int = 300) -> dict:
     img = np.array(Image.frombytes("RGB", (pix.width, pix.height), pix.samples))
 
     engine = get_ocr_engine(lang_code)
-    result = engine.readtext(img)  # list of (box, text, conf)
+    result = engine.readtext(img) 
 
     blocks = []
     lines_text = []

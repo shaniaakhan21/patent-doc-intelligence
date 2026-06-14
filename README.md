@@ -81,7 +81,7 @@ source .venv/bin/activate          # Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
 # Run OCR on a single document (fast smoke test)
-python src/ocr.py --file data/raw/native_en_WO2021087334.pdf --max-pages 3
+python src/ocr.py --file data/raw/native_en_WO2020099854.pdf --max-pages 3
 
 # Run OCR on everything
 python src/ocr.py

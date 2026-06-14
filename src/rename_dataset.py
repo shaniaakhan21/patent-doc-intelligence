@@ -3,6 +3,7 @@ rename_dataset.py — auto-rename raw PDFs to {native|scanned}_{lang}_{docid}.pd
 by reading each document's own front page.
 """
 
+from pydoc import doc
 import re
 from pathlib import Path
 
@@ -41,14 +42,14 @@ def page1_text(doc, pdf_type):
     """Embedded text for native docs; quick OCR of page 1 for scans."""
     if pdf_type == "native":
         return doc[0].get_text()
-    # Scanned: OCR page 1 only (numbers are Latin chars, English model is fine)
-    from paddleocr import PaddleOCR
+    import easyocr
     pix = doc[0].get_pixmap(dpi=200)
     img = np.array(Image.frombytes("RGB", (pix.width, pix.height), pix.samples))
-    result = PaddleOCR(use_angle_cls=True, lang="en", show_log=False).ocr(img, cls=True)
-    if not result or not result[0]:
+    reader = easyocr.Reader(["en"], gpu=False, verbose=False)
+    result = reader.readtext(img)
+    if not result:
         return ""
-    return "\n".join(text for _, (text, _) in result[0])
+    return "\n".join(text for _, text, _ in result)
 
 
 def find_pubnum(text):
